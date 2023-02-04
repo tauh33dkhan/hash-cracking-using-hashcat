@@ -1,6 +1,6 @@
 # Hash cracking using hashcat
 
-I did some testing to crack NTLM hash without any prior knowledge of password policy I used all small case,uppercase and special characters (!@#$%^&*) to crack hash of "password"  which has 8 char as we don't know the password length we can try to bruteforce it by trying all combination of 8 char password then 9,10,12 so when I tried it hashcat showed that it will take 1 day 6 hours to try all combination but cracked it in about 3 sec with speed of 5900 MH/S on my hardware.
+I did some testing to crack NTLM hash without any prior knowledge of password policy I used all small case,uppercase and special characters to crack hash of "password"  which has 8 char as we don't know the password length we can try to bruteforce it by trying all combination of 8 char password then 9,10,12 so on.. when I tried it hashcat showed that it will take 1 day 6 hours to try all combination but cracked it in about 3 sec with speed of 4800 MH/s on my hardware.
 
 ```
 > cat hash
@@ -38,9 +38,9 @@ Stopped: Sat Feb  4 13:38:33 2023
 
 ```
 
-**Note:** -D is to specify device to use for bruteforce by default hashcat uses gpu you can also use cpu along with by using -D 1,2 option where 2 is your cpu 
+**Note:** -D is to specify device to use for bruteforce by default hashcat uses gpu you can also use cpu along with gpu by using -D 1,2 option where 2 is your cpu 
 
-Now let's try some different password for example password@123 now here it gets tricky as this password has 12 char now if we try the same command it will first bruteforce all 8 char password then 9,10,11 at last 12 let's calculate the time it will take to bruteforce 9 char password with my hardware hashcat tells that it will take "85 days, 10 hours" to try all 9 char password combination then 16 years, 177 days to try all 10 char combination.
+Now let's try a different password for example `password@123`, here it gets tricky as this password has 12 char if we try the same command it will first bruteforce all 8 char password then 9,10,11 at last 12 let's calculate the time it will take to bruteforce 9 char password with my hardware hashcat tells that it will take "85 days, 10 hours" to try all 9 char password combination then 16 years, 177 days to try all 10 char combination.
 
 
 ```bash
@@ -75,9 +75,10 @@ Candidates.#1....: I)seraner -> CAT32r123
 Candidates.#3....: sYKvepane -> D!1p7ess1
 Hardware.Mon.#1..: Temp: 70c Util: 98% Core:1695MHz Mem:6000MHz Bus:8
 Hardware.Mon.#3..: Temp: 87c Util: 95%
+```
 
-[s]tatus [p]ause [b]ypass [c]heckpoint [f]inish [q]uit => q
-
+```bash
+> hashcat -a 3 -m 1000 --increment --increment-min 10 --increment-max 12 -1 "abcdedfghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\!@#$%*&()" q ?1?1?1?1?1?1?1?1?1?1?1 -D 1,2
 Session..........: hashcat                                
 Status...........: Quit
 Hash.Mode........: 1000 (NTLM)
@@ -104,7 +105,7 @@ Hardware.Mon.#1..: Temp: 85c Util: 98% Core:1620MHz Mem:6000MHz Bus:8
 Hardware.Mon.#3..: Temp: 95c Util: 93%
 ```
 
-Now let's again try bruteforce the same password using some popular wordlist for example rockyou.txt and it is cracked in milli seconds :]
+let's try again to crack the same password using some popular wordlist for example rockyou.txt and it is cracked in milli seconds :]
 
 ```bash
 > hashcat -a 0 -m 1000 q /usr/share/wordlists/rockyou.txt
@@ -139,7 +140,7 @@ Started: Sat Feb  4 14:17:39 2023
 Stopped: Sat Feb  4 14:17:41 2023
 ```
 
-but not all password are in the wordlists so this time we will try to guess password of Miller who is using password Miller@2023 now let's try guess chars that can be used by him in password based on his name so we have "Mmiller@!123407" and we will again try all combination between 8 to 12 length and it is cracked in 2 minutes.
+but not all password are in the wordlists so this time we will try to guess password of user Miller who is using password `Miller@2023` let's try to guess chars that can be used by him in password based on his name "Mmiller@!123407" and try all combination between 8 to 12 length and it is cracked in 2 minutes.
 
 ```bash
 > hashcat -a 3 -m 1000 --increment --increment-min 8 --increment-max 12 -1 "Mmiller@\!123407" q ?1?1?1?1?1?1?1?1?1?1?1 -D 1,2
@@ -177,3 +178,11 @@ Hardware.Mon.#3..: Temp: 95c Util: 74%
 facca05d11d88a6e16dd6a9b294654b7:Miller@2023
 ```
 
+So it is not only about how powerfull your hardware is to crack the password, if you have good information about the target and a good wordlist you can crack most password easily.
+
+there is one more concept of rules which I need to explore.
+
+Read more:
+Wiki: https://hashcat.net/wiki/
+Mask Attack: https://hashcat.net/wiki/doku.php?id=mask_attack
+Rule Based Attack: https://hashcat.net/wiki/doku.php?id=rule_based_attack
