@@ -7,7 +7,7 @@ generate NTLM hash: https://codebeautify.org/ntlm-hash-generator
 ```
 > cat hash
 8846F7EAEE8FB117AD06BDD830B7586C
-> hashcat -a 3 -m 1000 --increment --increment-min 8 --increment-max 12 q ?a?a?a?a?a?a?a?a?a?a?a?a?a -D 1,2
+> hashcat -a 3 -m 1000 --increment --increment-min 8 --increment-max 12 hash ?a?a?a?a?a?a?a?a?a?a?a?a?a -D 1,2
 
 8846f7eaee8fb117ad06bdd830b7586c:password                 
                                                           
@@ -46,7 +46,7 @@ Now let's try a different password for example `password@123`, here it gets tric
 
 
 ```bash
-> hashcat -a 3 -m 1000 --increment --increment-min 9 --increment-max 12 -1 "abcdedfghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\!@#$%*&()" q ?1?1?1?1?1?1?1?1?1?1?1 -D 1,2
+> hashcat -a 3 -m 1000 --increment --increment-min 9 --increment-max 12 -1 "abcdedfghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\!@#$%*&()" hash ?1?1?1?1?1?1?1?1?1?1?1 -D 1,2
 Watchdog: Temperature abort trigger set to 90c
 
 Host memory required for this attack: 1478 MB
@@ -80,7 +80,7 @@ Hardware.Mon.#3..: Temp: 87c Util: 95%
 ```
 
 ```bash
-> hashcat -a 3 -m 1000 --increment --increment-min 10 --increment-max 12 -1 "abcdedfghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\!@#$%*&()" q ?1?1?1?1?1?1?1?1?1?1?1 -D 1,2
+> hashcat -a 3 -m 1000 --increment --increment-min 10 --increment-max 12 -1 "abcdedfghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\!@#$%*&()" hash ?1?1?1?1?1?1?1?1?1?1?1 -D 1,2
 Session..........: hashcat                                
 Status...........: Quit
 Hash.Mode........: 1000 (NTLM)
@@ -110,7 +110,7 @@ Hardware.Mon.#3..: Temp: 95c Util: 93%
 let's try again to crack the same password using some popular wordlist for example rockyou.txt and it is cracked in milli seconds :]
 
 ```bash
-> hashcat -a 0 -m 1000 q /usr/share/wordlists/rockyou.txt
+> hashcat -a 0 -m 1000 hash /usr/share/wordlists/rockyou.txt
 Dictionary cache hit:
 * Filename..: /usr/share/wordlists/rockyou.txt
 * Passwords.: 14344385
@@ -145,7 +145,7 @@ Stopped: Sat Feb  4 14:17:41 2023
 but not all password are in the wordlists so this time we will try to guess password of user Miller who is using password `Miller@2023` let's try to guess chars that can be used by him in password based on his name "Mmiller@!123407" and try all combination between 8 to 12 length and it is cracked in 2 minutes.
 
 ```bash
-> hashcat -a 3 -m 1000 --increment --increment-min 8 --increment-max 12 -1 "Mmiller@\!123407" q ?1?1?1?1?1?1?1?1?1?1?1 -D 1,2
+> hashcat -a 3 -m 1000 --increment --increment-min 8 --increment-max 12 -1 "Mmiller@\!123407" hash ?1?1?1?1?1?1?1?1?1?1?1 -D 1,2
 Watchdog: Temperature abort trigger set to 90c
 
 Host memory required for this attack: 1478 MB
