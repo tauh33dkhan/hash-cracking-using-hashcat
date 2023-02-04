@@ -2,6 +2,8 @@
 
 I did some testing to crack NTLM hash without any prior knowledge of password policy I used all small case,uppercase and special characters to crack hash of "password"  which has 8 char as we don't know the password length we can try to bruteforce it by trying all combination of 8 char password then 9,10,12 so on.. when I tried it hashcat showed that it will take 1 day 6 hours to try all combination but cracked it in about 3 sec with speed of 4800 MH/s on my hardware.
 
+generate NTLM hash: https://codebeautify.org/ntlm-hash-generator
+
 ```
 > cat hash
 8846F7EAEE8FB117AD06BDD830B7586C
