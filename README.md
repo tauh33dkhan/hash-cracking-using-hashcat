@@ -184,7 +184,9 @@ So it is not only about how powerfull your hardware is to crack the password, if
 
 there is one more concept of rules which I need to explore.
 
-Read more:
+# Read more:
 Wiki: https://hashcat.net/wiki/
+
 Mask Attack: https://hashcat.net/wiki/doku.php?id=mask_attack
+
 Rule Based Attack: https://hashcat.net/wiki/doku.php?id=rule_based_attack
